@@ -47,6 +47,7 @@ int Validite(int grille[5][5], int ligne, int colonne, int valeur) {
             return 0;
         }
     }
+
     return 1;
 }
 void RemplirGrille_random(int grille[5][5], int niveau) {
@@ -67,13 +68,13 @@ void RemplirGrille_random(int grille[5][5], int niveau) {
         int colonne = rand() % n;
         int valeur = (rand() % n) + 1;
 
+
         if (Validite(grille, ligne, colonne, valeur)) {
             grille[ligne][colonne] = valeur;
             casesARemplir--;
         }
     }
 }
-
 void rempgrille(int grille[5][5]) {
     int ligne, colonne, valeur;
 
@@ -85,7 +86,7 @@ void rempgrille(int grille[5][5]) {
         scanf_s("%d", &colonne);
 
         if (ligne >= 0 && ligne < 5 && colonne >= 0 && colonne < 5) {
-            printf_s("Donnez votre valeur : ");
+            printf_s("Donnez votre valeur (entre 1 et 5): ");
             scanf_s("%d", &valeur);
 
             if (valeur >= 1 && valeur <= 5 && Validite(grille, ligne, colonne, valeur)) {
@@ -102,30 +103,43 @@ void rempgrille(int grille[5][5]) {
         }
     }
 }
-
 int main() {
-    int grille1[5][5];
-    int grille2[5][5];
-    int grille3[5][5];
+    int grille[5][5];
+    int choix, niveau;
 
-    initGrille(grille1, 5);
-    initGrille(grille2, 5);
-    initGrille(grille3, 5);
+    while (1) {
+        printf_s("\nMenu:\n");
+        printf_s("1. Initialiser la grille\n");
+        printf_s("2. Generer la grille aleatoirement\n");
+        printf_s("3. Resoudre la grille\n");
+        printf_s("4. Afficher la grille\n");
+        printf_s("5. Quitter\n");
+        printf_s("Entrez votre choix: ");
+        scanf_s("%d", &choix);
 
-    RemplirGrille_random(grille1, 1);
-    RemplirGrille_random(grille2, 2);
-    RemplirGrille_random(grille3, 3);
-
-    printf_s("Grille remplie a 50%% :\n");
-    affGrille(grille1, 5);
-
-    printf_s("Grille remplie a 33%% :\n");
-    affGrille(grille2, 5);
-
-    printf_s("Grille remplie a 25%% :\n");
-    affGrille(grille3, 5);
-
-    rempgrille(grille1);
-
+        switch (choix) {
+        case 1:
+            initGrille(grille, 5);
+            printf_s("Grille initialisee.\n");
+            break;
+        case 2:
+            printf_s("Choisissez le niveau de remplissage (1: 50%%, 2: 33%%, 3: 25%%): ");
+            scanf_s("%d", &niveau);
+            RemplirGrille_random(grille, niveau);
+            printf_s("Grille generee aleatoirement.\n");
+            break;
+        case 3:
+            rempgrille(grille);
+            break;
+        case 4:
+            affGrille(grille, 5);
+            break;
+        case 5:
+            printf_s("Au revoir !\n");
+            return 0;
+        default:
+            printf_s("Choix invalide. Veuillez reessayer.\n");
+        }
+    }
     return 0;
 }
