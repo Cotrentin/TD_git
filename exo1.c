@@ -1,7 +1,10 @@
+// NOTE : 11/20
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
+//on voulait pouvoir choisir une taille entre 1 et 9 pas 1 et 5
 void initGrille(int grille[5][5], int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -36,21 +39,18 @@ void affGrille(int grille[5][5], int n) {
     printf_s("\n");
 }
 int Validite(int grille[5][5], int ligne, int colonne, int valeur) {
+    // il faut passer la taille de la grille en parametre, on voulait pouvoir choisir une taille entre 1 et 9
+    for (int j = 0; j < 5; j++) { // une seule boucle est suffisante
+        if (grille[ligne][j] == valeur || grille[j][colonne] == valeur) {
+            return 0;
+        }
+    }
 
-    for (int j = 0; j < 5; j++) {
-        if (grille[ligne][j] == valeur) {
-            return 0;
-        }
-    }
-    for (int i = 0; i < 5; i++) {
-        if (grille[i][colonne] == valeur) {
-            return 0;
-        }
-    }
 
     return 1;
 }
 void RemplirGrille_random(int grille[5][5], int niveau) {
+    // idem il faut passer la taille de la grille en parametre
     int n = 5;
     int casesARemplir;
 
@@ -76,9 +76,10 @@ void RemplirGrille_random(int grille[5][5], int niveau) {
     }
 }
 void rempgrille(int grille[5][5]) {
+    // idem il faut passer la taille de la grille en parametre
     int ligne, colonne, valeur;
 
-    while (1) {
+    while (1) { // boucle infinie, aucun break pour arrêter le while
         printf_s("Entrez le numero de la ligne (0 a 4): ");
         scanf_s("%d", &ligne);
 
@@ -103,6 +104,7 @@ void rempgrille(int grille[5][5]) {
         }
     }
 }
+
 int main() {
     int grille[5][5];
     int choix, niveau;
